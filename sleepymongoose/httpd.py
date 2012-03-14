@@ -237,7 +237,7 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
 
         MongoHandler.mh = MongoHandler(MongoHTTPRequest.mongos)
         
-        print "listening for connections on http://localhost:27080\n"
+        print "listening for connections on http://localhost:%d\n" %(port)
         try:
             server.serve_forever()
         except KeyboardInterrupt:
