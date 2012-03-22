@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import pymongo
 from pymongo import connection, Connection, ASCENDING, DESCENDING
 from pymongo.son import SON
 from pymongo.errors import ConnectionFailure, ConfigurationError, OperationFailure, AutoReconnect
@@ -157,7 +157,7 @@ class MongoHandler:
         if "server" in args:
             try:
                 uri = args.getvalue('server')
-                info = connection._parse_uri(uri)
+                info = pymongo.uri_parser.parse_uri(uri)
             except Exception, e:
                 print uri
                 print e
