@@ -39,7 +39,6 @@ except AttributeError:
     urlparse.parse_qs = cgi.parse_qs
 
 
-
 class MongoServer(HTTPServer):
 
     pem = None
@@ -162,7 +161,7 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
 
 
         uri = uri.strip('/')
-
+    
         # default "/" to "/index.html"
         if len(uri) == 0:
             uri = "index.html"
@@ -171,13 +170,12 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
         # if we have a collection name with a dot, don't use that dot for type
         if len(dot) == 0 or uri.find('/') != -1:
             type = ""
-
         return (uri, args, type)
 
 
-    def do_GET(self):        
+    def do_GET(self):
+        
         (uri, args, type) = self.process_uri("GET")
-
  
         # serve up a plain file
         if len(type) != 0:
@@ -237,13 +235,16 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
 
         MongoHandler.mh = MongoHandler(MongoHTTPRequest.mongos)
         
-        print "listening for connections on http://localhost:%d\n" %(port)
-        try:
-            server.serve_forever()
-        except KeyboardInterrupt:
-            print "\nShutting down the server..."
-            server.socket.close()
-            print "\nGood bye!\n"
+        import webbrowser
+        webbrowser.open('http://localhost:27080/steward/urls/_find?id=123&name=abc')
+        server.handle_request()
+        #print "listening for connections on http://localhost:%d\n" %(port)
+        #try:
+        #    server.serve_forever()
+        #except KeyboardInterrupt:
+        #    print "\nShutting down the server..."
+        #    server.socket.close()
+        #    print "\nGood bye!\n"
 
 
 class MongoHTTPSRequest(MongoHTTPRequest):
