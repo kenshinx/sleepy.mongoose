@@ -97,12 +97,10 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
 
     def call_handler(self, uri, args):
         """ execute something """
-
         (db, collection, func_name) = self._parse_call(uri)
         if db == None or func_name == None:
             self.send_error(404, 'Script Not Found: '+uri)
             return
-
         name = None
         if "name" in args:
             if type(args).__name__ == "dict":
@@ -119,7 +117,7 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
                 
         func = getattr(MongoHandler.mh, func_name, None)
         if callable(func):
-            self.send_response(200, 'OK')
+            self.send_response(200)
             self.send_header('Content-type', MongoHTTPRequest.mimetypes['json'])
             for header in self.response_headers:
                 self.send_header(header[0], header[1])
@@ -236,7 +234,7 @@ class MongoHTTPRequest(BaseHTTPRequestHandler):
         MongoHandler.mh = MongoHandler(MongoHTTPRequest.mongos)
         
         import webbrowser
-        webbrowser.open('http://localhost:27080/steward/urls/_find?id=123&name=abc')
+        webbrowser.open('http://localhost:27080/kenshin/domains/_find?count=6318')
         server.handle_request()
         #print "listening for connections on http://localhost:%d\n" %(port)
         #try:
