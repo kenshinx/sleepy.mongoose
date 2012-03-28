@@ -1,7 +1,10 @@
-为sleepy.mongoose增加了wsgi的支持，试过用nginx+uwsgi来部署没有问题。
+原来的sleep.mongoose实现了一个单线程的http server，但是无法配合nginx，apache等web服务器在线上部署。
 
-nginx+uwsgi快速部署方法：
+我在原来基础上增加了wsgi的支持，可以通过python wsgi.py来调试。
+
+另外通过nginx+uwsgi部署也没有问题,Quick Start：
+
 uwsgi --http :9090 --wsgi-file  mongo_uwsgi.py
 
-更多文档还是看
- [the wiki](http://wiki.github.com/kchodorow/sleepy.mongoose/) for documentation.
+更多使用方法请看项目原来的wiki
+ [the wiki](http://wiki.github.com/kchodorow/sleepy.mongoose/) 
