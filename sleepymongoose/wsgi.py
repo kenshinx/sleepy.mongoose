@@ -1,10 +1,13 @@
+import os
+import urlparse
 from wsgiref.simple_server import make_server
 from BaseHTTPServer import BaseHTTPRequestHandler
+
+import config
 from httpd import MongoHTTPRequest
 from handlers import MongoHandler
-import urlparse
-import config
-import os
+
+
 
 class WSGIResponse(object):
     def __init__(self,status=None, headers={},body=None):
@@ -12,8 +15,6 @@ class WSGIResponse(object):
         self.status = status
         self.headers = headers
     
-
-
 
 class WSGIRequest(MongoHTTPRequest):
     
@@ -135,7 +136,11 @@ app = WSGIMongoAPP()
 if __name__ == '__main__':
     httpd = make_server('', 27080, app)
     import webbrowser
-    webbrowser.open('http://localhost:27080/kenshin/domains/_find?count=6318')
-    #httpd.serve_forever()
-    httpd.handle_request()
+    httpd.serve_forever()
+    
+    """
+    convenience for  step by step debug    
+    """
+    #webbrowser.open('http://localhost:27080/kenshin/domains/_find?count=6318')
+    #httpd.handle_request()
  
